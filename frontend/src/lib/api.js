@@ -5,7 +5,7 @@ import { getToken } from './auth'
 const defaultBaseURL = (() => {
   // If the app is opened from another device (LAN), `localhost` points at that device.
   // Use the current page hostname by default so the backend resolves correctly.
-  if (typeof window === 'undefined') return 'http://localhost:5000'
+  if (typeof window === 'undefined') return 'https://skytrack-project.onrender.com'
   const hostname = window.location?.hostname || 'localhost'
   const protocol = window.location?.protocol === 'https:' ? 'https:' : 'http:'
   return `${protocol}//${hostname}:5000`
