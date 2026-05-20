@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #0B0F19;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Leaflet tweaks for a premium dark UI */
+.leaflet-container {
+  background: #0B0F19;
+}
+
+/* World map "night glow" tuning (base tiles + city-lights overlay) */
+.leaflet-tile.skytrack-basemap {
+  filter: brightness(0.92) contrast(1.14) saturate(1.12);
+}
+
+.leaflet-tile.skytrack-citylights {
+  mix-blend-mode: screen;
+  filter: brightness(1.55) contrast(1.18) saturate(1.18);
+  opacity: 0.95;
+}
+
+.leaflet-control-attribution {
+  background: rgba(0,0,0,0.35) !important;
+  color: rgba(255,255,255,0.55) !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.leaflet-tooltip.skytrack-tooltip {
+  background: rgba(11, 15, 25, 0.78) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.92) !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.10) !important;
+  backdrop-filter: blur(14px);
+}
+
+.leaflet-tooltip.skytrack-tooltip:before {
+  border-right-color: rgba(255,255,255,0.10) !important;
+}
+
+/* Glowing airplane marker */
+.skytrack-flight-marker {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.14);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.35);
+  position: relative;
+}
+
+.skytrack-flight-marker .ring {
+  position: absolute;
+  inset: -10px;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.2);
+  animation: skytrack-pulse 1.6s ease-out infinite;
+}
+
+.skytrack-flight-marker .planeWrap {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+}
+
+.skytrack-flight-marker .plane {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.8));
+  color: rgba(255,255,255,0.95);
+  width: 18px;
+  height: 18px;
+  animation: skytrack-float 2.2s ease-in-out infinite;
+}
+
+.skytrack-flight-marker .plane svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.55));
+}
+
+.skytrack-flight-marker[data-status='delayed'] {
+  background: rgba(249, 115, 22, 0.14);
+  border-color: rgba(249, 115, 22, 0.38);
+  box-shadow: 0 0 18px rgba(249, 115, 22, 0.28);
+}
+
+.skytrack-flight-marker[data-status='delayed'] .ring {
+  border-color: rgba(249, 115, 22, 0.25);
+  box-shadow: 0 0 18px rgba(249, 115, 22, 0.18);
+}
+
+.skytrack-flight-marker[data-status='delayed'] .plane {
+  filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.55));
+}
+
+/* Selected route endpoints */
+.skytrack-endpoint-marker {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.08);
+}
+
+.skytrack-endpoint-marker .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.skytrack-endpoint-marker[data-kind='from'] {
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.20);
+}
+
+.skytrack-endpoint-marker[data-kind='to'] {
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.18);
+}
+
+@keyframes skytrack-pulse {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.0;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@keyframes skytrack-float {
+  0%, 100% {
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}

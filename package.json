@@ -1,0 +1,12 @@
+{
+  "name": "skytrack",
+  "private": true,
+  "scripts": {
+    "dev": "npm run frontend:dev",
+    "build": "npm run frontend:build",
+    "backend": "npm run backend:dev",
+    "frontend:dev": "npm --prefix frontend run dev -- --host",
+    "frontend:build": "npm --prefix frontend run build",
+    "backend:dev": "if exist backend\\.venv\\Scripts\\python.exe (backend\\.venv\\Scripts\\python.exe backend\\run.py) else (python backend\\run.py)"
+  }
+}
